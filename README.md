@@ -1,7 +1,7 @@
 # "CS50x Kodluyoruz" Süreci
 ![resim](https://i.hizliresim.com/sgvW55.png)
 ## CS50 Nedir
- CS50 Harvard Üniversitesi tarafından hazırlanan, sunumu ise aynı üniversitede eğitmen olarak görevli Profesör David J. Malan'nca sunulan bir bilgisayar bilimleri ve programlama sanatı için güçlü bir temel oluşturma kursudur.
+ CS50 Harvard Üniversitesi tarafından hazırlanan, sunumu ise aynı üniversitede eğitmen olarak görevli Profesör David J. Malan'nca sunulan bilgisayar bilimleri ve programlama sanatı için güçlü bir temel oluşturma kursudur.
 ## Kodluyoruz Topluluğu Nedir
  "Türkiye'yi teknolojide bir yetenek merkezi yapmak için gençlere ihtiyaçları olan eğitimi sağlıyoruz." ilkesine sahip kâr amacı gütmeyen bir yazılım odaklı  topluluktur.
 ## Bu "Repo"nun Amacı
