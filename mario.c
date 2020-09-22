@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <cs50.h>
 
-//definition taking hash count by prompt
+//definition taking height size by prompt
 int get_hash_number(){
     int hash_number = 0;
 
