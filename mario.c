@@ -38,7 +38,7 @@ void make_block(int hash_number){
 
 int main(void){
 
-    //program will keep ask till get the right value by user   
+    //program will keep ask for height till get the right value by user   
     while(true){
         //calling get_hash_number func to get value
         int hash_number = get_hash_number();
@@ -48,7 +48,7 @@ int main(void){
             //calling make_block func
             make_block(hash_number);
 
-            //we got the right answer so we kill the program
+            //we got the proper answer so we kill the program
             break;
         }
     }
