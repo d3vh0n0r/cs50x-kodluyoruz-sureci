@@ -5,7 +5,7 @@
 int get_hash_number(){
     int hash_number = 0;
 
-    printf("Prompt hash number: ");
+    printf("enter height: ");
     
     hash_number = get_int("");
 
