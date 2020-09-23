@@ -6,4 +6,4 @@
  "Türkiye'yi teknolojide bir yetenek merkezi yapmak için gençlere ihtiyaçları olan eğitimi sağlıyoruz." ilkesine sahip kâr amacı gütmeyen bir yazılım odaklı  topluluktur.
  
 ## Bu Deponun Amacı
-Bu "repo"da Kodluyoruz Topluluğu tarafından türkçeleştirilen popüler bilgisayar bilimlerine giriş dersi olan CS50 kursunun formal olmayan bir şekilde, kendimce not alınması ve sürecin daha sonrasın da tarafımca takipi için gerekli kayıtların yapılması amaçlanmış; aynı süreçten geçecek kişilere yardımcı olabileceği düşünülmüştür.
+Bu depoda Kodluyoruz Topluluğu tarafından türkçeleştirilen popüler bilgisayar bilimlerine giriş dersi olan CS50 kursunun formal olmayan bir şekilde, kendimce not alınması ve sürecin daha sonrasın da tarafımca takipi için gerekli kayıtların yapılması amaçlanmış; aynı süreçten geçecek kişilere yardımcı olabileceği düşünülmüştür.
