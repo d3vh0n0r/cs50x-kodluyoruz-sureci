@@ -1,7 +1,21 @@
 #include <stdio.h>
 #include <cs50.h>
 
-//definition taking height value by prompt
+/*
+EXAMPLE OUTPUT
+Note: program allows between 1 and 8
+
+enter the height: 15
+enter the height: sdgdsg
+enter the height: 
+enter the height: 3
+  #
+ ##
+###
+*/
+
+
+//definition of get height value by prompt
 int get_hash_number(){
 
     int hash_number = 0;
