@@ -30,7 +30,7 @@ int main(int argc, string argv[]){
         else
         {
             updated_value = uncrypted_text[i] + key;
-            if(islower(uncrypted_text[i]) && (updated_value > 122)) //if letter is lower case and letter ascii value + key total is over the 122 (it's equal 'z' so last  upper case letter on ASCII table) then set letter's ascii value to 97 (it's equal to 'a') and keep that loop till key_counter(program gets it by terminal input) is 0. So we can change the letter to letter not anything else(like ! | [ , etc.).
+            if(islower(uncrypted_text[i]) && (updated_value > 122)) //if letter is lower case and letter ascii value + key total is over the 122 (it's equal 'z' so last  lower case letter on ASCII table) then set letter's ascii value to 97 (it's equal to 'a') and keep that loop till key_counter(program gets it by terminal input) is hit to 0. Althought, we can change the letter to letter not anything else(like ! | [ , etc.).
             {
                 while(key_counter != 0)
                 {
@@ -51,7 +51,7 @@ int main(int argc, string argv[]){
                     }
                 }
             }
-            else if(isupper(uncrypted_text[i]) && (updated_value > 90 && updated_value < 97)) //if letter is upper case and letter ascii value + key total is over the 90 (it's equal 'Z' so last  upper case letter on ASCII table) then set letter's ascii value to 65 (it's equal to 'A') and keep that loop till key_counter(program gets it by terminal input) is 0. So we can change the letter to letter not anything else(like ! | [ , etc.).
+            else if(isupper(uncrypted_text[i]) && (updated_value > 90 && updated_value < 97)) //if letter is upper case and letter ascii value + key total is over the 90 (it's equal 'Z' so last  upper case letter on ASCII table) then set letter's ascii value to 65 (it's equal to 'A') and keep that loop till key_counter(program gets it by terminal input) is hit to 0. Althought, we can change the letter to letter not anything else(like ! | [ , etc.).
             {
                 while(key_counter != 0)
                 {
