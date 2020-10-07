@@ -1,0 +1,169 @@
+Videolu Ders Notları:
+- linking kavramına değindik. komut satırında clang hello.c -lcs50 burda ki -lcs50 de l linking'i temsil ediyor cs50 ile kütüphanemizi. Böylelikle clang kaynağımızı derlerken cs50 içerisinde bulunan 01leri de programımız ile ilişkilendiriyor(tam anlamıyla source da ki 01iler ile birleştiriyor) ki programımızda o 01'ler(cs50 ile alakalı) çıkarsa cs50den çekip veriyi anlamlaştıracak.
+- Derleme konusuna değindik
+- bir programı derleyeceksek 4 ana işlem vardır
+	- 1.preprocesser(ön-derleyici): kodlarımız da "#include <stdio.h>" yazarak öncelikle, en önce işlemesi gereken şey olduğunu belirtiyoruz.
+		- mesela kod bloğumuzda bir yerde get_string çalıştırdığımız da #include içerisinde elemanlar olan(bunlar prototip fonksiyon tanımlamaları string get_string(prompt); gibi)ve bu elemanların prototip olduğunu bildiğimiz değerleri döndürür. yani #include <cs50.h> => string get_string(prompt); gibi davranır.
+	- 2.kodlarımız assembly diline çevrilir
+	- 3.adımda ise assembly dilinden gerçekten ikilik tabana çevrilir.
+	- 4.adımda ise kütüphaneler, ek kaynaklar 0101 sisteminde bağlanır, birleştirilir.
+- Dünya da kodlama da 3 ilke olduğundan bahsedildi.
+	- 1.doğruluk: kod istediğimiz eylemi yapıyor mu
+	- 2.tasarım: kod ne kadar özenle, iyi yazılmış
+	- 3.söylemedi, öğrenci girdi araya hoca da unuttu :(
+- help50 make credit, help50 uygulaması ile hatalarda yardım alabiliriz.
+- style50 ile yazımımızın doğru olup olmadığını test edebiliriz. Kullanım. style50 credit.c
+- printf ile test yapmayı gördük(döngüde kullanılarak kaç kere döndüğünü gördük mesela)
+- RAM belleklerin geçici, elektrik ile çalışan hızlı geçici depolama alanları olduğunu öğrendik.
+- Diziler RAM'de arka arkaya veri tutan veri öbekleridir. Kutu kutu düşünürsek 1 belleği 2. 3. 4. kutuları bir dizi arka arkaya(yani sıralı bir şekilde)kullanabilir.
+- Bir programın kodlarını açtığımızda görmek istediğimiz main yani işlemlerin, olayların yapıldığı kısımdır. Biz fonksiyonumuzu yazarken tanımlanması için(hatırlatma: yukardan okumaya başlıyor compiler) main üstüne yazarsak ve programımızın büyük çapta bir kod bloğunun olduğunu düşünürsek bu pek doğru olmaz(değil mi?). Bu yüzden prototip fonksiyonu kullanırız ki main kısmı olabildiğince üstte, erişilebilir kalsın.
+- dizilerin scores[3] , -3 elemanlı bir scores adında dizi yani 3 tane scores- gibi kullanılabildiğini gördük.
+- bir programlama dizaynına değindik meselea int scores[3] ile 3 değer aldığımızda diziye
+	- for(int i = 0; i<3; i++) gibi 2 kere for döngüsünü bu diziyle alakalı kullandığımızı düşünürsek
+	- yarın öbür gün scores 4 yaptığımızda for da ki i'lere gidip onları da 4 yapmamız gerekiyor ve bu bize bir değişiklik olduğunda diğerlerini değiştirme zorunluluğu ve sorumluluğunu veriyor ki bu çok kötü bir dizayn modeli. Buna çözüm olarak aşağıdaki maddeyi inceleyebiliriz.
+- Global değişkenin ne olduğunu(main'in üstüne yazılıyor), kuralını(tüm harfler büyük olmalı) ve const(veri tipinden önce yazılır ve nitelediği değişkenin kullanıcı tarafından değiştirilmemesini, etkilenmemesini sağlar.) anahtar sözcüğünü gördük.
+	- Örn: const int SAYAC = 0;
+- Bir fonksiyona argüman olarak dizi vericeksek(girdi olacaksa) dizinin elemanını belirtmeMEMİZ gerekiyor. 
+	- Örn: void counter(int timer, int numbers[]);
+- Değişken çapında optimizasyon gördük. mesela string name = "onur" diye karakter dizimiz var. Bunun harflerini yazmak için
+	- for(int i = 0 ; i < strlen(name); i ++) printf("\n%c", name[i]); yapabiliriz fakat döngümüz her koşul sorgulamasına geldiğinde strlen fonksiyonu name'in karakter uzunluğunu TEKRAR, TEKRAR çekecek. Bu iyi bir dizayn değil bunun  yerine strlen(name)'i bir değişkene atayarak tekrar, tekrar fazladan işlem yapmasını engelleyebiliriz
+		- int length = strlen(name); for(int i =  0; i < length; i++) printf("\n%c", name[i]); 
+		- stili(yazım güzelliğini) daha iyileştirmek için şöyle yazabiliriz
+			- for(int i = 0, length = strlen(name); i < length; i++) ...... böylelikle for döngüsü içinde local bir 2.değişken tanımladık ve daha az kod satırı yazdık.
+- karakter dizileri bellekte başlangıç noktasından(ki bu galiba name[0]'a denk geliyor) başlayarak - RAM'ı ızgara şeklinde düşünürsek - arka arkaya yani yan yana yazılırlar. onur 4 karakter olarak yan yana o n u r diye yazılsa da karakter dizisinin sonunda ek olarak 1 bytelık bir veri(varsayılan olarak 0 değerini içerir) daha bulunur(dizinin sonlandığına dair) yani onur aslında 5 bytlık bir alan kaplar. Bu sonuncu dizi elemanını  döngülerde veya kodlamada " \0" olarak kullanabilir, ulaşabiliriz.
+- casting yönetmini gördük. int a = (int) name[0] işlemi name'in 0.elemanının tamsayı değere dönüşmesini -ki bu da ASCII değerini ifade ediyor- sağlar. Bu yönteme casting deniyor.
+	- printf("%i", name[0]) dersek yine casting yapmış oluruz(yukarıda ki i = i + 1, burada ki ise i++ gibi düşünebiliriz.)
+- "man fonksiyon" terminal komutu ile fonksiyon hakkında bilgi alabiliyoruz.
+	- SYNOPSIS denilen kısımda, hangi başlığı dahil etmemiz gerektiğini
+	- onun altında ise içerdiği fonksiyonların nasıl kullanılabileceğini belirtiyor.
+- komut satırından programımıza argüman girmeyi öğrendik. int main(int argc, string argv[])
+	- argc kaç tane argüman girdiğimizin bilgisini tutar
+	- string argv dizisi içerisinde her biri kelime olan - bu kelimeler komut satırından aldığımız veriler - bir dizidir.
+		- argv[0] her zaman programın adıdır. Diğer elemanlar ise kullanıcının girdikleridir.
+- Kriptolama(şifrelemeye değindik)
+	- düzyazı > kara kutu > şifreli yazı
+	- şimdi hi'ı ASCII ile kodlayıp gönderirsek şöyle olur 72 73 fakat bu güvenli bir yöntem değildir. ASCII bilen herkes bunu anlayabilir. Bu yüzden kara kutuya düz yazı ile birlikte bir anahtar veriririz. Bu anahtarı sadece ben ve karşı taraf, alıcı bilirse bu daha güvenli olacaktır.
+	- düzyazı, anahtar > kara kutu > şifreli yazı
+	- anahtarımız 2 diye düşünürsek ve ascii kodlarımıza 2 eklersek; 74 75 olacaktır ki bu da J K sonucunu bize verir. Karşı taraf bunu bildiği için(şifreleme anahtarını) bunu anlayacaktır fakat başkası bunu elde ederse, anlayamayacaktır. Anlaması için kripto analiz yapabilir;
+		- kripto analiz; şifrelenmiş yazıyı olasılık ve düşünce yöntemi ile tahmin etmektir. 2 harf olan kaç tane kelime var? peki 1 kişiden başka kişiye gittiğine göre bu 2 harfli kelime bu olasılıklar arasından hangisi olabilir? Bu olasılığa uyan 74'e yakın hangi harfler var? bu soruları sorduğumuzda zaten cevaba ulaşmış oluruz fakat şifreleme yöntemimimizi bir kitaba yazsaydık bunu yapmasına gerek kalmazdı değil mi :)
+- fonksiyonların return 0 döndürürse(ki biz void harici bir tipte fonksiyon yazıp return kullanmadığımızda işleyici bunu otamatik ekliyor) sorun yok return 1 döndürürse sorun var anlamında, çıktı verir. Bu neden önemli? İlerleyen programlarda bir hata ile karşılaştığımızda ve bu hataları bir dökümantasyona oturtup hepsine bir sayı verirsek; 2 verdiğimizde mesela boş bir input hatası aldığını varsayalım, input alamadığımızda programa return 2; diyerek kullanıcıdan çok geliştiriciye büyük yardımda bulunabiliriz.
+- Bubble(Kabarcık) Sort(Sıralama), Selection(Seçerek) Sort(Sıralama) ve performans analizini gördük. 
+- birden fazla dizi kullanarak bir algoritma oluşturduk(birleştirmeli sıralama[merge sort])
+- dizimiz: 4 2 7 5 6 8 3 1
+	- 4 2 7 5 | 6 8 3 1 olarak 2 diziye böldük
+		- devam edip 4 2 | 7 5 yaparak 2 yeni dizi daha oluşturduk yani problemimizi küçülttük
+			- 4 | 2 olarak 2 yeni dizi oluşturduk problemimizi daha da küçülttük
+				- 4 dizisi kendi içerisinde sıralı mı? evet tanım  gereği 1 dizinin 1 elemanı varsa kendi içerisinde sıralıdır aynı şekilde 2 de 
+				- 4 ve 2'yi karşılaştırarak yeni dizi oluşturduk
+				- 2 4 dizisi oldu
+				- 7 5 dizisini aynı şekilde 
+					- 7 | 5
+					- 5 7 
+				- dizimizin son hali 2 4 | 5 7 | 6 8 3 1
+				- 2 4 ve 5 7'yi birleştirirsek
+				- 2 4 5 7 | 6 8 3 1 olarak son halini alır.
+				- 6 8 | 3 1
+					- 6 | 8 iki tek elemanlı diziyi ele alırsak
+					- 6 8 tek dizisini elde ederiz
+				- 3 | 1 iki tek elemanlı diziyi ele alırsak
+					- birleştirirken 1 küçük olduğundan başa alırız yani
+					- 1 3 olur
+				- dizimizin orta sağ tarafı yani 6 8 | 1 3 olur bunu da tek dizide birleştirirsek
+					- 1 3 6 8 olur
+			- dizimizin son hali 2 4 5 7 | 1 3 6 8 oldu bunu da tek bir dizide birleştirirsek
+				- 1 2 3 4 5 6 7 8 olur. :)
+	- totalde 3 hamlede yaptık(?)
+	- yani naptık problemi olabildiğince küçülterek parçacıklara böldük ve puzzle gibi birleştirerek sıralamayı oluşturduk.
+- tekrar tekrar tekrar bölmeye devam ettiğimiz için bu olaya, duruma; logoritma, logoritmik algoritma deriz.
+Videolu Ders Notları:
+Kısa Video 1(Fonksiyonlar):
+- Fonksiyonlar: procedures, method(OOP'da kullanılıyor), subroutines olarak da bilinir.
+- Tabir-i caizse kara kutudur. içerisine 1 veya daha fazla girdi verilir ve tek çıktı(baskı -printf baskıdır mesela- demiyoruz bak çıktı diyoruz ha) alınır.
+	- neden kara kutu diye tabir ediyoruz. Çünkü: kod bloklarını bilmediğimiz fonksiyonları kullanabiliyoruz - printf gibi -. Ya da çarpma işlemi yapan bir fonksiyonun bloğuna pseudo olarak yazdığımızı düşünürsek: 
+		- a 3 ve b 5 diye düşünürsek: carp(a, b) { yazdir a*b } 15 sonucunu vericektir
+		- yada
+		- carp(a, b) { b'ya 5 ata, b kadar tekrar et, a'ya 3 ekle, yazdir a ] da aynı şekilde 15 sonucunu verir
+		- bu yüzden içeriği farklı olabilir, bilinmeyen olabilir(işlevini bildiğimiz ama kodlarını tam manasıyla görmediğimiz manasında).
+- Fonksiyonları yazarken iyi dökümante edilmesi ve isminin açık, belirgin olması ÖNEMLİDİR!
+- Neden fonksiyon kullanmalıyız
+	- organizasyon: daha düzenlenebilir bir yapı oluşturabiliriz.
+	- simplification: hata ayıklama gibi işlemler örnek verilebilir. Her şey daha belirgin(hataların nerden hangi fonksiyondan çıktığı vb.) olur.
+	- sürekli kullanılabilirler.
+- Form: return-type name(argument-list);
+- fonksiyonu tanımladıktan sonra kullanmak için fonksiyonu uygun parametreleri girerek yazarız. Eğer fonksiyonumuz return ile bir çıktı veriyorsu fonksiyonumuzu bir değişkene atarız ki çıktı olarak verilen değeri program içerisinde kullanabilelim.
+Kısa Video 2(Diziler):
+- Diziler bir veri türü değil, veri yapısı(data structure)dır.
+- Diziler, bellekte verileri bitişik bir şekilde tutmak, gruplamak, ayrı isim vermeden o gruptaki elemanları, verileri kullanmak için verimli bir çözümdür.
+- Diziler eşit parçalara ayrılmıştır ve bu parçalara eleman denir.
+- Dizinin her elemanında aynı veri tipinin elemanları tanımlanabilir
+- İndeks dediğimiz kavram ile bu elemanlara ulaşabiliriz. dizi[3] ile 4.elemana ulaşırız.
+- Dizilerin elemanları 0'dan başlar.
+- Form: type name[size];
+- Topluca dizi elemanlarına başlangıç değeri vermek
+	- bool dy[3] = {true, false, false, true};
+- ya da bireysel olarak da tanımlanabilir.
+	- bool dy[3];
+	- dy[0] = true;
+	- dy[1] = false;
+	- dy[2] = false;
+	- dy[3] = true;
+- eğer toplu belirtmede "size" belirtmezsek derleyici eşittirden sonra kaç tane eleman koyduğumuzu anlayarak, ona göre eleman sayısına sahip dizi oluşturur.
+- Diziler tek boyutdan fazla olabilir
+	- örn dy[5][5]
+- aslında burdaki olay derleyici tek boyutlu 25 uzunluğunda bir dizi oluşturuyor fakat daha rahat anlaşılması için biz 5'e 5 bir tablo soyutlaması yaparız.
+- Dizilerin elemanlarını değişken olarak kullanabiliriz fakat direk diziyi değişken gibi kullanamayız(örn: başka bir değişkene diziyi atamak?!?)
+- Diziyi kopyalerken dizinin kopyasını değil referans adresini(işaretçiler konusu *-*)bağdaştırarak, diziyi klonlar. Ana dizide herhangi bir değişiklikte, klonlanmış dizi de etkilenir.
+Kısa Video 3(Doğrusal Arama[Linear Search]):
+- Bir dizideki bir değeri bulmak için kullanabileceğimiz algoritma(bir görevi tamamlamak için adım, adım tanımlanmış süreç, işlem, durum.)dır.
+- bu algortimanın mantığında şu var.
+	- dizideki elemanlara aradığımız değeri sorarak, bulmaya çalışır.
+		- 9u aradığımızı düşünelim; 1,2,6,4,8,10,9
+			- 1.eleman 1 geç
+			- 2.eleman 2 geç
+			- ....
+			- 7.eleman 9 evet, dur.
+- eğer üstteki dizide 50'yi ararsak, bütün elemanları bakmadan 50nin olup olmadığını bilemeyiz çünkü bu algoritmada arama işlemi sıralı bir şekilde ilerliyor ki bu da dezavantaj sayılır.
+Kısa Video 4(Seçenek Sıralama[Selection Sort]):
+- Bir dizi değeri sıraya koyan algoritmadır.
+- Çalışma mantığı
+	- sırasız listedeki en küçük değeri bul(doğrusal arama algoritması ile)
+	- en küçük değeri listenin en başında ki elemanla değiştir.
+	- yani şuan [0].elemana sıralı listenin elemanı dersek
+	- sırasız listede yine aynı işlemi yapıp [1].elemana koyuyoruz böylelikle [0] ve [1] elemanlar bir sıralı liste grubu olarak düşünebiliriz
+	- bunu listenin tüm elemanları için yaptığımızda, işlemlerin sonunda sırali bir liste elde ederiz.
+- Bu algoritmanın sıkıntısı, dizideki her elemanı sıraya koymaya çalışırken sırasız listenin uzunluğu n dersek, n kadar kadar doğrusal arama algoritması çalışacak :/ 
+Kısa Video 5(Kabarcık Sıralama[Bubble Sort]):
+- Bir dizi elemanı sıraya koymak için kullandığımız algoritma
+- Ana fikri; yüksek değerli elemanları sağa, küçük değerleri sola doğru taşırız.
+	- bir x degiskeni tanımlayalım, bu degisken 0 olana kadar aşağıdaki işlemleri gerçekleştirecek
+		- [0] ve [1] elemanı karşılaştırıp, sıralı olup olmadığına bakarız. sıralı ise [1] ve [2] eleman için aynısı yaparız, değilse yerlerini değiştirir ve x degiskeninin 1 artırırız.
+		- üstteki işlemi dizi elemanın uzunlugu n dersek, n kadar yaparız ve böylelikle en büyük sayı en sona alınmış olur. 4 kere sırasız ikili ile karşılaştığımızı düşünürsek x 4'tür. şimdi x'i 0'a eşitleyip tekrar aynı işlemleri yaparız.
+		- böylelikle sondan 2.eleman, dizideki en büyük 2.eleman olmuş olur ve x 3'e düşer. x 0 olana kadar işlemimi devam ettiririz ve x 0 olduğunda bu programın bize listenin sıralı bir biçime geldiğini işaret eder.
+- Bu algoritmada en kötü durum, dizinin elemanlarının en büyükten; en küçüğe sıralanması. Böylelikle aynı işlemi n.n kadar yapmak zorunda kalır.
+Kısa Video 6(Eklemeli Sıralama[Insertion Sort]):
+- Bir diziyi sıralamak için kullanırız.
+- Hatırlatma: algoritma bir görevi tamamlamak için adım adım talimatlar bütünüdür.
+- Çalışma mantığı
+	- ilk elemanı sıralı olarak ele alırız
+	- 2.elemana ele alıp sıralı olarak ele aldığımız elemanlar arasında yerleştirme yaparız
+	- 3.elemanı ele alıp; sıralı olarak listelediğimiz 1 ve 2 elemana göre nereye koyulması gerektiğini saptar ve koyarız
+		- örn 1 = 1,  2 = 4, 3 = 2 olsaydı 3.elemanı 2.elemanın yerine koymamız gerekirdi. 2.elemanı, sıralı liste içerisinde 3.sıraya; sırasız listeden aldığımız elemanı ise sıralı listede 2.sıraya koyarız.
+	- tüm listeyi bu şekilde düzenleriz. Farkındaysak ele aldığımız elemanı sıralı liste olarak adlandırdığımız grubtaki elemanlar ile karşılaştırıp, kaçıncı sıraya gelmesi gerekiyorsa o sıradaki elemanı bir ileri atayarak işlemi bitiririz. eğer 6 adet sıralı bir listede, sırasız lsiteden aldığımız elemanımız 4.sıraya gelcekse sırasıyla 6'yı 7'ye, 5'i 6'ya, 4'ü 5'e kaydırırız ki bu da kötü bir durum. Sırasız listeden aldığımız her elemanı 1.sıraya koymamız gerektiğini düşünürsek? Gerçekten maliyetli olurdu değil mi?
+Kısa Video 7(Birleştirmeli Sıralama[Merge Sort]):
+- videoyu izle valla, anlatsam destan olur.
+Kısa Video 8(İkili Arama[Binary Search]):
+- Bir dizinin içerisinde ki bir öğeyi bulmak için kullanırız.
+- Sırasız bir dizide kullanmamız mantıklı olmaz. Çünkü böl-fethet mantığında ilerliyor ve böldüğümüz de bir sıralı diziyi sol taraf daha küçük sağ taraf daha büyük değerleri içerir. Sırasız dizide ise bunu garanti edemeyiz ve istediğimiz değer büyükken aslında solda olabilir. Bu yüzden ikili arama, sıralı dizilerde uygulanmalıdır.
+- start degiskenine baslangıc indeksimizi, end degiskenimize en sonuncu elemanın endeksini atıyoruz.
+- 14/2 = 7, middle degiskenine 7'yi atıyoruz. aradığımız sayı 7.indeksde ki elemandan büyükse,
+	- start = 8 olarak atarız(7 zaten kucuk oldugunu biliyoruz o yüzden onu da yok sayarız.)
+	- end kaçtı? 14.
+	- 14 + 8 = 22. 22/2 = 11. middle = 11
+	- 11.indeksteki eleman aradığımız sayıdan büyük mü?
+		- aynı işlemler
+- küçükse
+	- start = 0'dı, end'e 6 atarız.
+	- 6/2 = 3
+	- 3 indeksten büyük veya küçük mü?
+		- küçükse üstteki işlemin aynısını büyükse "küçükse" textinin yukarısında ki işlemlerin değerlerini bulunduğumuz duruma adapte edip kullanırız.
+- start ve end çapraz yer değiştirirse, yani start end'den küçük olursa, aradığımız değer dizide yok demektir. aradığımız değere(dizide olmayan) en yakın değere ulaştığımızda start = 8, end = 8 haliyle tek elemanlı bir dizi kaldığı için middle da 8 olacaktır.(8 temsili bir sayı) peki aradığımız sayı bu değilse(ki bu değil çünkü aradığımız sayı dizide yok), ne yapıcak? aradığımız sayı, bulduğumuz sayıdan küçük diye varsayarsak; end = 7 olucak(çünkü sol taraf küçük sayıları içeriyordu sıralı algoritmada) ve start ile end çaprazlanmış( start = 8, end = 7 olmuş oldu)olacak ki bu da bize aradığımız değerin dizide olmadığını ifade eder. büyük diye varsayarsak, start = 9 end = 8 olacaktı. 
